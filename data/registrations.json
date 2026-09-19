@@ -1,0 +1,1 @@
+{"registrations":[],"schema":{"id":"string","playerTag":"string","pubgId":"string","contact":"string","tournamentType":"1v1 | 2v2 | 3v3 | 4v4","teamName":"string | null","status":"pending | approved | rejected","stats":{"wins":0,"kills":0,"losses":0,"matchesPlayed":0},"createdAt":"ISO-8601 timestamp"}}
