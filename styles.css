@@ -37,3 +37,8 @@ tbody tr:last-child td{border-bottom:0}
 .admin-back a {
   color: inherit;
 }
+
+.admin-tools { margin-top: 1.5rem; }
+.admin-tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.admin-tool { padding: 1rem; border: 1px solid rgba(128,128,128,.25); border-radius: 12px; display: grid; gap: .4rem; }
+.admin-tool span { opacity: .75; font-size: .92rem; }
