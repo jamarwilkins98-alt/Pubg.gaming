@@ -6,6 +6,57 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const form = document.getElementById("registrationForm");
 const message = document.getElementById("message");
+const playersTableBody = document.getElementById("playersTableBody");
+const dashboardMessage = document.getElementById("dashboardMessage");
+const refreshPlayers = document.getElementById("refreshPlayers");
+
+async function loadPlayers() {
+  dashboardMessage.textContent = "Loading players...";
+  playersTableBody.innerHTML = "";
+
+  const { data: players, error } = await supabase
+    .from("players")
+    .select("player_tag,pubg_id,status,wins,kills,losses,matches_played")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Dashboard error:", error);
+    dashboardMessage.textContent =
+      error.message || "Unable to load players.";
+    return;
+  }
+
+  dashboardMessage.textContent = players.length
+    ? `${players.length} player${players.length === 1 ? "" : "s"} registered.`
+    : "No players registered yet.";
+
+  if (!players.length) {
+    playersTableBody.innerHTML =
+      '<tr><td colspan="7" class="empty">No players to display.</td></tr>';
+    return;
+  }
+
+  playersTableBody.innerHTML = players.map((player) => `
+    <tr>
+      <td>${escapeHtml(player.player_tag)}</td>
+      <td>${escapeHtml(player.pubg_id)}</td>
+      <td class="status">${escapeHtml(player.status)}</td>
+      <td>${player.wins ?? 0}</td>
+      <td>${player.kills ?? 0}</td>
+      <td>${player.losses ?? 0}</td>
+      <td>${player.matches_played ?? 0}</td>
+    </tr>
+  `).join("");
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -74,9 +125,13 @@ form.addEventListener("submit", async (e) => {
     message.textContent =
       "Registration submitted successfully. Status: Pending.";
     form.reset();
+    await loadPlayers();
   } catch (error) {
     console.error("Registration error:", error);
     message.textContent =
       error.message || "Registration failed. Please try again.";
   }
 });
+
+refreshPlayers.addEventListener("click", loadPlayers);
+loadPlayers();
