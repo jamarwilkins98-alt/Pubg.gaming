@@ -26,10 +26,38 @@
     </section>
 
     <section class="card admin-tools">
-      <h2>Management</h2>
-      <p>Admin controls are ready to be added here.</p>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PLAYER MANAGEMENT</p>
+          <h2>Players & Registrations</h2>
+          <p class="sub">View every player registration and its current status.</p>
+        </div>
+        <button type="button" id="refreshPlayers" class="secondary-button">Refresh</button>
+      </div>
+
+      <p id="playersMessage" class="dashboard-message">Loading registrations...</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>PUBG ID</th>
+              <th>Contact</th>
+              <th>Tournament</th>
+              <th>Team</th>
+              <th>Status</th>
+              <th>Registered</th>
+            </tr>
+          </thead>
+          <tbody id="adminPlayersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card admin-tools">
+      <h2>Other Management</h2>
       <div class="admin-tool-grid">
-        <div class="admin-tool"><strong>Players</strong><span>Approve and manage registrations</span></div>
         <div class="admin-tool"><strong>Teams</strong><span>Manage team rosters</span></div>
         <div class="admin-tool"><strong>Tournaments</strong><span>Create and manage events</span></div>
         <div class="admin-tool"><strong>Matches</strong><span>Enter results and update statistics</span></div>
