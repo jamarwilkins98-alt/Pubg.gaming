@@ -1,1 +1,26 @@
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#f5f7ff}.wrap{max-width:720px;margin:0 auto;padding:60px 20px}.eyebrow{letter-spacing:3px;font-size:12px;color:#8ea2ff}h1{font-size:42px;margin:8px 0}.sub{color:#aeb7cf}.card{margin-top:30px;padding:28px;border:1px solid #283250;border-radius:18px;background:#121a2e;box-shadow:0 20px 60px #0005}form{display:grid;gap:18px}label{display:grid;gap:8px;font-weight:700}input,select{width:100%;padding:13px 14px;border-radius:10px;border:1px solid #34405f;background:#0c1325;color:#fff;font-size:16px}button{padding:14px;border:0;border-radius:10px;background:#fff;color:#101522;font-size:16px;font-weight:800;cursor:pointer}#message{min-height:20px;color:#9fe3b1}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#f5f7ff}
+.wrap{max-width:1100px;margin:0 auto;padding:50px 20px}
+.eyebrow{letter-spacing:3px;font-size:12px;color:#8ea2ff;margin:0 0 8px}
+h1{font-size:42px;margin:8px 0}
+h2{font-size:28px;margin:4px 0 0}
+.sub{color:#aeb7cf}
+.card{margin-top:30px;padding:28px;border:1px solid #283250;border-radius:18px;background:#121a2e;box-shadow:0 20px 60px #0005}
+form{display:grid;gap:18px}
+label{display:grid;gap:8px;font-weight:700}
+input,select{width:100%;padding:13px 14px;border-radius:10px;border:1px solid #34405f;background:#0c1325;color:#fff;font-size:16px}
+button{padding:14px;border:0;border-radius:10px;background:#fff;color:#101522;font-size:16px;font-weight:800;cursor:pointer}
+button:hover{opacity:.9}
+#message{min-height:20px;color:#9fe3b1}
+.section-heading{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.secondary-button{padding:10px 16px;background:#26314e;color:#fff;border:1px solid #3b496e}
+.dashboard-message{min-height:20px;color:#aeb7cf}
+.table-wrap{overflow-x:auto;border:1px solid #283250;border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:720px}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid #283250}
+th{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#aeb7cf;background:#0c1325}
+td{font-size:15px}
+tbody tr:last-child td{border-bottom:0}
+.status{font-weight:700;text-transform:capitalize}
+.empty{color:#aeb7cf;text-align:center;padding:24px}
+@media(max-width:700px){h1{font-size:34px}.card{padding:20px}.section-heading{align-items:flex-start;flex-direction:column}.secondary-button{width:100%}}
