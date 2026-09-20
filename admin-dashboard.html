@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Dashboard — PUBG Tournament Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <p class="eyebrow">PUBG TOURNAMENTS</p>
+      <h1>Admin Dashboard</h1>
+      <p class="sub">Manage the tournament system from one secure area.</p>
+    </header>
+
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ADMIN</p>
+          <h2 id="adminEmail">Loading...</h2>
+        </div>
+        <button type="button" id="signOut" class="secondary-button">Sign Out</button>
+      </div>
+      <p id="adminMessage" role="status">Checking your admin session...</p>
+    </section>
+
+    <section class="card admin-tools">
+      <h2>Management</h2>
+      <p>Admin controls are ready to be added here.</p>
+      <div class="admin-tool-grid">
+        <div class="admin-tool"><strong>Players</strong><span>Approve and manage registrations</span></div>
+        <div class="admin-tool"><strong>Teams</strong><span>Manage team rosters</span></div>
+        <div class="admin-tool"><strong>Tournaments</strong><span>Create and manage events</span></div>
+        <div class="admin-tool"><strong>Matches</strong><span>Enter results and update statistics</span></div>
+      </div>
+    </section>
+
+    <p class="admin-back"><a href="./">← Back to tournament site</a></p>
+  </main>
+  <script type="module" src="admin-dashboard.js"></script>
+</body>
+</html>
