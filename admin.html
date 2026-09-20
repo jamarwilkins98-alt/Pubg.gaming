@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Login — PUBG Tournament Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <p class="eyebrow">PUBG TOURNAMENTS</p>
+      <h1>Admin Login</h1>
+      <p class="sub">Sign in to manage players, teams, tournaments and match results.</p>
+    </header>
+
+    <section class="card admin-login-card">
+      <form id="adminLoginForm">
+        <label>Email
+          <input name="email" type="email" autocomplete="email" required placeholder="Admin email">
+        </label>
+
+        <label>Password
+          <input name="password" type="password" autocomplete="current-password" required placeholder="Password">
+        </label>
+
+        <button type="submit">Sign In</button>
+        <p id="loginMessage" role="status"></p>
+      </form>
+
+      <p class="admin-back"><a href="./">← Back to tournament site</a></p>
+    </section>
+  </main>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
