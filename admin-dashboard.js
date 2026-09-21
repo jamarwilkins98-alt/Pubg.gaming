@@ -27,10 +27,11 @@ async function loadRegistrations() {
     .from("tournament_registrations")
     .select(`
       id,
+      player_id,
       tournament_type,
       status,
       created_at,
-      players (player_tag, pubg_id, contact),
+      players (id, player_tag, pubg_id, contact, wins, kills, losses, matches_played),
       teams (team_name)
     `)
     .order("created_at", { ascending: false });
@@ -47,7 +48,7 @@ async function loadRegistrations() {
 
   if (!data.length) {
     playersTableBody.innerHTML =
-      '<tr><td colspan="7" class="empty">No registrations to display.</td></tr>';
+      '<tr><td colspan="12" class="empty">No registrations to display.</td></tr>';
     return;
   }
 
@@ -67,10 +68,70 @@ async function loadRegistrations() {
         <td>${escapeHtml(registration.tournament_type || "—")}</td>
         <td>${escapeHtml(team?.team_name || "—")}</td>
         <td class="status">${escapeHtml(registration.status || "—")}</td>
+        <td><input class="stat-input" type="number" min="0" data-player="${player?.id}" data-field="wins" value="${player?.wins ?? 0}"></td>
+        <td><input class="stat-input" type="number" min="0" data-player="${player?.id}" data-field="kills" value="${player?.kills ?? 0}"></td>
+        <td><input class="stat-input" type="number" min="0" data-player="${player?.id}" data-field="losses" value="${player?.losses ?? 0}"></td>
+        <td><input class="stat-input" type="number" min="0" data-player="${player?.id}" data-field="matches_played" value="${player?.matches_played ?? 0}"></td>
+        <td class="action-buttons">
+          <button type="button" class="approve-button" data-registration="${registration.id}" data-status="approved">Approve</button>
+          <button type="button" class="reject-button" data-registration="${registration.id}" data-status="rejected">Reject</button>
+          <button type="button" class="save-button" data-player="${player?.id}">Save Stats</button>
+        </td>
         <td>${formatDate(registration.created_at)}</td>
       </tr>
     `;
   }).join("");
+
+  playersTableBody.querySelectorAll("[data-registration]").forEach((button) => {
+    button.addEventListener("click", () => updateRegistrationStatus(button.dataset.registration, button.dataset.status));
+  });
+
+  playersTableBody.querySelectorAll(".save-button").forEach((button) => {
+    button.addEventListener("click", () => saveStats(button.dataset.player));
+  });
+}
+
+async function updateRegistrationStatus(registrationId, status) {
+  playersMessage.textContent = "Updating registration...";
+
+  const { error } = await supabase
+    .from("tournament_registrations")
+    .update({ status })
+    .eq("id", registrationId);
+
+  if (error) {
+    playersMessage.textContent = error.message || "Unable to update registration.";
+    return;
+  }
+
+  playersMessage.textContent = `Registration ${status}.`;
+  await loadRegistrations();
+}
+
+async function saveStats(playerId) {
+  if (!playerId) return;
+
+  const values = {};
+  for (const field of ["wins", "kills", "losses", "matches_played"]) {
+    const input = playersTableBody.querySelector(`[data-player="${playerId}"][data-field="${field}"]`);
+    const value = Number(input?.value);
+    if (!Number.isInteger(value) || value < 0) {
+      playersMessage.textContent = "Statistics must be whole numbers that are 0 or higher.";
+      return;
+    }
+    values[field] = value;
+  }
+
+  playersMessage.textContent = "Saving statistics...";
+  const { error } = await supabase.from("players").update(values).eq("id", playerId);
+
+  if (error) {
+    playersMessage.textContent = error.message || "Unable to save statistics.";
+    return;
+  }
+
+  playersMessage.textContent = "Player statistics saved.";
+  await loadRegistrations();
 }
 
 function formatDate(value) {
